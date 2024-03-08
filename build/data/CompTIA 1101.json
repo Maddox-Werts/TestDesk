@@ -1,0 +1,39 @@
+{
+  "name": "CompTIA A+ (1101)",
+  "description": "Questions from the 1101 A+ CompTIA exam.",
+  "questions": [
+    {
+      "type": 0,
+      "prompt": "A technician installed a known-good, compatible motherboard on a new laptop. However, the motherboard is not working on the laptop. Which of the following should the technician MOST likely have done to prevent damage?",
+      "responses": [
+        "Removed all jewelry",
+        "Completed an inventory of tools before use",
+        "Practiced electrical fire safety",
+        "Connected a proper ESD strap"
+      ],
+      "correct": 3
+    },
+    {
+      "type": 0,
+      "prompt": "Which of the following would an administrator use to migrate virtual machines from on premises to the cloud?",
+      "responses": [
+        "laaS",
+        "SaaS",
+        "DBaaS",
+        "DRaaS"
+      ],
+      "correct": 0
+    },
+    {
+      "type": 0,
+      "prompt": "A user, who is attempting to give a presentation via a projector in a conference room, reports the projector has video but no audio. Which of the following will MOST likely resolve the issue?",
+      "responses": [
+        "Changing the input on the projector to VGA",
+        "Changing the output on the PC to DVI",
+        "Modifying the projector's refresh rate",
+        "Utilizing an HDMI connection"
+      ],
+      "correct": 3
+    }
+  ]
+}
