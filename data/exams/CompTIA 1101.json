@@ -34,6 +34,116 @@
         "Utilizing an HDMI connection"
       ],
       "correct": 3
+    },
+    {
+      "type": 0,
+      "prompt": "Which of the following standards supports MIMO technology?",
+      "responses":[
+        "802.11a",
+        "802.11b",
+        "802.11g",
+        "802.11n"
+      ],
+      "correct": 3
+    },
+    {
+      "type": 0,
+      "prompt": "Which of the following technologies can allow multiple networks to traverse a switch?",
+      "responses":[
+        "VLAN",
+        "VRRP",
+        "VPN",
+        "DHCP"
+      ],
+      "correct": 0
+    },
+    {
+      "type": 0,
+      "prompt": "A company just bought a printer capable of automatically printing on both sides of the paper After installation, however, the technician can only print on both sides of the paper manually. Which of the following should the technician do to fix the issue?",
+      "responses":[
+        "Install the most recent firmware upgrade available for the printer.",
+        "Contact the vendor for a hardware replacement.",
+        "Reinstall the printer software and drivers, and then restart the printer.",
+        "Read the installation manual and configure duplex settings."
+      ],
+      "correct": 3
+    },
+    {
+      "type": 0,
+      "prompt": "An online retailer would like to add capacity to support increased sales. Additional servers have been installed. Which of the following should be used to ensure each new server is being properly utilized?",
+      "responses":[
+        "Virtualization",
+        "Clustering",
+        "Load balancer",
+        "Round-robin DNS"
+      ],
+      "correct": 2
+    },
+    {
+      "type": 0,
+      "prompt": "Which of the following utilizes TCP ports 20/21 and transfers data in cleartext?",
+      "responses":[
+        "SNMP",
+        "SSH",
+        "FTP",
+        "Telnet"
+      ],
+      "correct": 2
+    },
+    {
+      "type": 0,
+      "prompt": "A customer is using a satellite internet connection that is experiencing slowness. A technician notices high latency while pinging, but the download test is performing perfectly with very good download speeds. Which of the following represents the NEXT action the technician should perform?",
+      "responses":[
+        "Restart the modem and run an online internet connection and speed diagnostic tool.",
+        "Guide the customer on how to upgrade the internet plan with the provider in order to improve latency.",
+        "Explain to the customer this is not an issue; this situation is normal for this type of internet connection.",
+        "Replace the modem because it is not working correctly based on the test result."
+      ],
+      "correct": 0
+    },
+    {
+      "type": 0,
+      "prompt": "An organization maintains various record types, including health and criminal justice records. Which of the following cloud environments is the organization MOST likely to use to limit the attack surface?",
+      "responses":[
+        "Public",
+        "Hybrid",
+        "Community",
+        "Private"
+      ],
+      "correct": 3
+    },
+    {
+      "type": 0,
+      "prompt": "Which of the following components enables the input on a mobile device's touch screen?",
+      "responses":[
+        "OLED",
+        "Digitizer",
+        "Inverter",
+        "CMOS sensor"
+      ],
+      "correct": 1
+    },
+    {
+      "type": 0,
+      "prompt": "Which of the following should the data center hardware technician implement to ensure maximum uptime for customers' virtual machines?",
+      "responses": [
+        "Line conditioner",
+        "AC voltage regulator",
+        "Uninterruptible power supply",
+        "Cloud storage backup"
+      ],
+      "correct": 2
+    },
+    {
+      "type": 0,
+      "prompt": "A field technician has been dispatched to a site with an internet outage. Upon arriving, the technician discovers that the POTS lines are not working as well. Which of the following technologies is the site MOST likely using?",
+      "responses": [
+        "Fiber",
+        "Cable",
+        "DSL",
+        "Satellite"
+      ],
+      "correct": 2
     }
   ]
 }
