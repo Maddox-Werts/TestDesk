@@ -8,7 +8,7 @@
 // Entry point
 int main(int argc, char* argv[]){
     // Loading a new test
-    Quiz quiz = Quiz("data/CompTIA 1101.json");
+    Quiz quiz = Quiz("data/exams/CompTIA 1101.json");
 
     // Init application
     Tester_CLI cli;

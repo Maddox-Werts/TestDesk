@@ -43,9 +43,9 @@ void Tester_CLI::DisplayScore(Score score){
   system("clear");
 
   // Quick Stats
-  std::cout << score.correct << " / " << (score.correct + score.incorrect) << "\n";
-  std::cout << score.percentage << "\n";
+  std::cout << score.percentage << "%\n";
   std::cout << "\n";
+  std::cout << score.correct << " / " << (score.correct + score.incorrect) << "\n";
   std::cout << "You missed " << score.incorrect << " questions.\n";
   std::cout << "\n";
 

@@ -75,7 +75,9 @@ Score Quiz::qScore(){
   // Calculate percentage
   float fC = result.correct;
   float fI = result.correct + result.incorrect;
-  result.percentage = fC / fI;
+  float fP = fC / fI;
+  float rP = (float)( (int)(fP * 10000) );
+  result.percentage = rP / 100;
 
   // Return result
   return result;
