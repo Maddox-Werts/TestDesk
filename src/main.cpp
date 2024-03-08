@@ -22,7 +22,7 @@ int main(int argc, char* argv[]){
     // Displaying questions
     quiz.qCurrent = 0;
     for(unsigned int i = 0; i < quiz.qSize(); i++){
-        cli.DisplayQuestion(quiz.qCurrent, quiz.qGet());
+        cli.DisplayQuestion(quiz.qCurrent, quiz.name, quiz.qGet());
 
         std::string typed;
         std::cout << "Answer: ";
@@ -33,7 +33,7 @@ int main(int argc, char* argv[]){
     }
 
     // Showing results
-    cli.DisplayScore(quiz.qScore());
+    cli.DisplayScore(quiz.qScore(), quiz.name);
 
     // Exit
     return 0;

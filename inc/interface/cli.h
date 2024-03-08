@@ -21,8 +21,8 @@ public:
 
   // Functions
   static int Letter2Number(const char* letter);
-  void DisplayQuestion(int index, Question* question);
-  void DisplayScore(Score score);
+  void DisplayQuestion(int index, std::string title, Question* question);
+  void DisplayScore(Score score, std::string title);
 };
 
 #endif
