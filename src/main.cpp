@@ -29,6 +29,7 @@ int main(int argc, char* argv[]){
         std::cin >> typed;
 
         quiz.qAnswer(Tester_CLI::Letter2Number(typed.c_str()));
+        quiz.qCurrent++;
     }
 
     // Showing results
