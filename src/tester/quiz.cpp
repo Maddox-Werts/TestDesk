@@ -7,7 +7,7 @@ Score::Score(){
   incorrect = 0;
   correct = 0;
 }
-Quiz::Quiz(const char* quizPath){
+Quiz::Quiz(const char* quizPath, int wantedQuestions){
   // Load the quiz from path
   std::ifstream file(quizPath);
 
@@ -26,6 +26,7 @@ Quiz::Quiz(const char* quizPath){
   this->description = qData["description"];
 
   // Loading questions
+  std::vector<Question*> tquestions;
   for(unsigned int i = 0; i < qData["questions"].size(); i++){
     // Current questions
     json lq = qData["questions"][i];
@@ -40,7 +41,16 @@ Quiz::Quiz(const char* quizPath){
     Question* nq = new Question(lq["prompt"], responses, lq["correct"]);
 
     // Adding it into the list
-    this->questions.push_back(nq);
+    tquestions.push_back(nq);
+  }
+
+  // Making sure it is 100% random
+  srand(time(NULL));
+
+  // Adding 15 random questions from that list
+  for(unsigned int i = 0; i < wantedQuestions; i++){
+    int qIndex = std::rand() % (tquestions.size() + 1);
+    this->questions.push_back(tquestions[qIndex]);
   }
 }
 

@@ -16,6 +16,42 @@ Tester_CLI::Tester_CLI(){
 }
 
 // Functions
+void Tester_CLI::AskQuestions(Quiz quiz, int num){
+  // Displaying questions
+  quiz.qCurrent = 0;
+  for(unsigned int i = 0; i < quiz.qSize(); i++){
+      DisplayQuestion(quiz.qCurrent, quiz.qSize(), quiz.name, quiz.qGet());
+
+      std::string typed;
+      std::cout << "Answer: ";
+      std::cin >> typed;
+
+      quiz.qAnswer(Tester_CLI::Letter2Number(typed.c_str()));
+      quiz.qCurrent++;
+  }
+
+  // Showing results
+  DisplayScore(quiz.qScore(), quiz.name);
+}
+void Tester_CLI::MainMenu(Quiz quiz){
+  // Clearing screen
+  system("clear");
+
+  // Showing the title of our current test
+  std::cout << "-- " << quiz.name << " --" << "\n";
+  std::cout << "- " << quiz.description << "\n";
+  std::cout << "\n";
+
+  // Showing options
+  std::cout << "1) Answer 15 questions" << "\n";
+  std::cout << "2) Answer 30 questions" << "\n";
+  std::cout << "3) Answer 60 questions" << "\n";
+  std::cout << "4) Exit" << "\n";
+  std::cout << "\n";
+
+  std::cout << "Choose page [1-4]: ";
+}
+
 int Tester_CLI::Letter2Number(const char* letter){
   for(unsigned int i = 0; i < indexes.size(); i++){
     if(indexes[i] == letter){
@@ -24,7 +60,7 @@ int Tester_CLI::Letter2Number(const char* letter){
   }
   return -1;
 }
-void Tester_CLI::DisplayQuestion(int index, std::string title, Question* question){
+void Tester_CLI::DisplayQuestion(int index, int qmax, std::string title, Question* question){
   // Clear screen
   system("clear");
 
@@ -33,7 +69,7 @@ void Tester_CLI::DisplayQuestion(int index, std::string title, Question* questio
   std::cout << "\n";
   
   // Giving the question's prompt
-  std::cout << index+1 << ") " << question->prompt << "\n";
+  std::cout << "(" << index+1 << " / " << qmax << ") " << question->prompt << "\n";
   std::cout << "\n";
 
   // Spitting out responses

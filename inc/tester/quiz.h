@@ -34,7 +34,7 @@ public:
   int qCurrent;
 
   // Constructors
-  Quiz(const char* quizPath);
+  Quiz(const char* quizPath, int wantedQuestions);
 
   // Functions
   void qAnswer(int answer);
