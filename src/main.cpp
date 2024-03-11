@@ -2,6 +2,7 @@
 #include <base.h>
 #include <tester/quiz.h>
 #include <interface/cli.h>
+#include <interface/gui.h>
 
 // Functions
 void cli_version(){

@@ -10,6 +10,7 @@ set(SOURCES
   src/tester/quiz.cpp
 
   src/interface/cli.cpp
+  src/interface/gui.cpp
 
   src/main.cpp
 )
