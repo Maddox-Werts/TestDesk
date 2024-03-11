@@ -2,6 +2,17 @@
 #define H_WINDOW
 
 // Includes
-#include <base.h>
+#include <QWindow>
+
+// Classes
+class Window{
+private:
+  // Variables
+  QWindow* window;
+
+public:
+  // Constructors
+  Window(const char* title, int w, int h);
+};
 
 #endif
