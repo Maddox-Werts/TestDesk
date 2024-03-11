@@ -27,7 +27,7 @@ void cli_version(){
     case '3':
         numOfQuestions = 60;
         break;
-    case '4':
+    default:
         return;
     }
 
@@ -36,6 +36,9 @@ void cli_version(){
 
     // Asking the user questions
     cli.AskQuestions(quiz, numOfQuestions);
+}
+void gui_version(){
+
 }
 
 // Entry point
@@ -58,6 +61,9 @@ int main(int argc, char* argv[]){
         cli_version();
         return 0;
     }
+
+    // Starting GUI version
+    gui_version();
 
     // Exit App
     return 0;
