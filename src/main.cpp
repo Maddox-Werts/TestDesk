@@ -2,9 +2,6 @@
 #include <base.h>
 #include <tester/quiz.h>
 #include <interface/cli.h>
-#include <interface/window.h>
-
-#include <QtGui/QGuiApplication>
 
 // Functions
 void cli_version(){
@@ -62,12 +59,6 @@ int main(int argc, char* argv[]){
         return 0;
     }
 
-    // Starting the GUI version
-    QGuiApplication app(argc, argv);
-
-    // Creating a window
-    Window window("TestDesk", 1024, 640);
-
-    // Exit
-    return app.exec();
+    // Exit App
+    return 0;
 }

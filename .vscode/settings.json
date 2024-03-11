@@ -82,5 +82,6 @@
     "variant": "cpp",
     "qcoreapplication": "cpp",
     "qguiapplication": "cpp"
-  }
+  },
+  "cmake.configureOnOpen": false
 }

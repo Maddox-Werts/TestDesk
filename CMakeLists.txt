@@ -15,7 +15,6 @@ set(SOURCES
   src/tester/quiz.cpp
 
   src/interface/cli.cpp
-  src/interface/window.cpp
 
   src/main.cpp
 )
