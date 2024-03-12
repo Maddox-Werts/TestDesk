@@ -43,14 +43,14 @@ int gui_version(int argc, char* argv[]){
     Quiz* quiz = new Quiz("data/exams/CompTIA 1101.json", 15);
 
     // Creating the window app
-    Window window("TestDesk", 770, 525);
+    Window::instance = new Window("TestDesk", 770, 525);
 
     // Creating the GUI
-    Tester_GUI gui = Tester_GUI(quiz);
+    Tester_GUI::instance = new Tester_GUI(quiz);
 
     // Finalizing and showing the window after creating GUI elements
-    window.Update();
-    window.Show(argc, argv);
+    Window::instance->Update();
+    Window::instance->Show(argc, argv);
 
     // Running FLTK
     return Fl::run();

@@ -21,6 +21,7 @@ private:
 
 public:
   // Variables
+  static Window* instance;
   Fl_Window* getWindow();
 
   // Constructors
@@ -34,8 +35,6 @@ public:
 class Tester_GUI{
 private:
   // Variables
-  Quiz* quiz;
-
   Fl_Button* g_exam_next;
   Fl_Button* g_exam_back;
 
@@ -47,14 +46,19 @@ private:
 
 public:
   // Variables
-  Quiz* getQuiz();
+  static Tester_GUI* instance;
+
+  Quiz* quiz;
   int sResponse;
 
   // Constructors
   Tester_GUI(Quiz* quiz);
 
   // Functions
-  void updateQuestion();
+  void Instantiate();
+  void Populate();
+
+  void EndTest();
 };
 
 #endif
