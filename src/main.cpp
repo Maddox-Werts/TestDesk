@@ -40,7 +40,7 @@ void cli_version(){
 }
 int gui_version(int argc, char* argv[]){
     // Loading a quiz
-    Quiz* quiz = new Quiz("data/exams/CompTIA 1101.json", 15);
+    Quiz* quiz = new Quiz("data/exams/CompTIA 1101.json", 5);
 
     // Creating the window app
     Window::instance = new Window("TestDesk", 770, 525);

@@ -152,14 +152,19 @@ void Tester_GUI::EndTest(){
   // Scoring the test
   Score score = Tester_GUI::instance->quiz->qScore();
 
-  // Printing stuff
-  std::cout << "Percentage: " << std::to_string(score.percentage) << "\n";
-
   // Adding new elements
   Fl_Box* title = new Fl_Box(240, 100, 215, 30);
   title->labeltype(FL_NORMAL_LABEL);
-  title->label("FI.LL%");
   title->labelsize(24);
+
+  // Adding percentage in a weird way
+  if(score.percentage < 75){
+    title->label("Failed Test.");
+  }
+  else{
+    title->label("Passed Test.");
+  }
+
   Window::instance->getWindow()->add(title);
 
   // Redraw
