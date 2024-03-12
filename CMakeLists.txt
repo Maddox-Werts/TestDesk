@@ -22,7 +22,7 @@ add_executable(TestDesk ${SOURCES})
 target_include_directories(TestDesk PRIVATE ${PROJECT_SOURCE_DIR}/inc)
 target_link_directories(TestDesk PRIVATE ${PROJECT_SOURCE_DIR}/lib)
 
-target_link_libraries(TestDesk)
+target_link_libraries(TestDesk fltk)
 
 # Directory
 set_target_properties(TestDesk PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build)

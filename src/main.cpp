@@ -38,8 +38,22 @@ void cli_version(){
     // Asking the user questions
     cli.AskQuestions(quiz, numOfQuestions);
 }
-void gui_version(){
+int gui_version(int argc, char* argv[]){
+    // Loading a quiz
+    Quiz* quiz = new Quiz("data/exams/CompTIA 1101.json", 15);
 
+    // Creating the window app
+    Window window("TestDesk", 770, 525);
+
+    // Creating the GUI
+    Tester_GUI gui = Tester_GUI(quiz);
+
+    // Finalizing and showing the window after creating GUI elements
+    window.Update();
+    window.Show(argc, argv);
+
+    // Running FLTK
+    return Fl::run();
 }
 
 // Entry point
@@ -63,9 +77,6 @@ int main(int argc, char* argv[]){
         return 0;
     }
 
-    // Starting GUI version
-    gui_version();
-
-    // Exit App
-    return 0;
+    // Starting the GUI Version
+    return gui_version(argc, argv);
 }
