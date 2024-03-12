@@ -57,11 +57,4 @@ public:
   void updateQuestion();
 };
 
-// Structures
-typedef struct CallbackData{
-  // Variables
-  std::vector<Fl_Radio_Round_Button*>* buttons;
-  Tester_GUI* gui;
-} CallbackData;
-
 #endif

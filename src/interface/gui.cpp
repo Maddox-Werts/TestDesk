@@ -82,11 +82,6 @@ void Tester_GUI::updateQuestion(){
     this->questionButtons.push_back(nRB);
   }
 
-  // Callback data
-  CallbackData data;
-  data.buttons = &this->questionButtons;
-  data.gui = this;
-
   // Next Callback
   this->g_exam_next->callback(onBTNclick, (void*)&this->questionButtons);
 }
