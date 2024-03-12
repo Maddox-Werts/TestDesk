@@ -148,10 +148,13 @@ void Tester_GUI::EndTest(){
   // Scoring the test
   Score score = Tester_GUI::instance->quiz->qScore();
 
+  // Printing stuff
+  std::cout << "Percentage: " << std::to_string(score.percentage) << "\n";
+
   // Adding new elements
   Fl_Box* title = new Fl_Box(240, 100, 215, 30);
   title->labeltype(FL_NORMAL_LABEL);
-  title->label((std::to_string(score.percentage) + "%").c_str());
+  title->label("FI.LL%");
   title->labelsize(24);
   Window::instance->getWindow()->add(title);
 
