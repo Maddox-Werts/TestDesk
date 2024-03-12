@@ -25,7 +25,7 @@ Function {make_window()} {open
       xywh {10 200 750 280} labelsize 19
     } {
       Fl_Group {} {
-        label {Question 13} open selected
+        label {Question 13} open
         xywh {20 225 730 150}
       } {
         Fl_Box {} {
@@ -34,11 +34,11 @@ Function {make_window()} {open
         }
         Fl_Box {} {
           label {You Said: APIPA}
-          xywh {40 320 5 20} align 8
+          xywh {40 330 5 20} align 8
         }
         Fl_Box {} {
-          label {Correct: DNS}
-          xywh {40 335 5 20} align 8
+          label {Correct: DNS} selected
+          xywh {40 350 5 20} align 8
         }
       }
     }

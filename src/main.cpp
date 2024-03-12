@@ -4,43 +4,23 @@
 #include <interface/cli.h>
 #include <interface/gui.h>
 
+// Variables
+int numOfQuestions = 15;
+
 // Functions
 void cli_version(){
     // Loading a new test
-    Quiz quiz = Quiz("data/exams/CompTIA 1101.json", 5);
+    Quiz quiz = Quiz("data/exams/CompTIA 1101.json", numOfQuestions);
 
     // Init application
     Tester_CLI cli;
-
-    // Showing the Main Menu
-    cli.MainMenu(quiz);
-    std::string menu; std::cin >> menu;
-    int numOfQuestions = 0;
-
-    // What page do we want?
-    switch(menu[0]){
-    case '1':
-        numOfQuestions = 15;
-        break;
-    case '2':
-        numOfQuestions = 30;
-        break;
-    case '3':
-        numOfQuestions = 60;
-        break;
-    default:
-        return;
-    }
-
-    // Making new quiz
-    quiz = Quiz("data/exams/CompTIA 1101.json", numOfQuestions);
 
     // Asking the user questions
     cli.AskQuestions(quiz, numOfQuestions);
 }
 int gui_version(int argc, char* argv[]){
     // Loading a quiz
-    Quiz* quiz = new Quiz("data/exams/CompTIA 1101.json", 5);
+    Quiz* quiz = new Quiz("data/exams/CompTIA 1101.json", numOfQuestions);
 
     // Creating the window app
     Window::instance = new Window("TestDesk", 770, 525);
@@ -68,13 +48,21 @@ int main(int argc, char* argv[]){
     if(args[1] == "--help"){
         printf("Usage: TestDesk [OPTIONS]\n");
         printf("OPTIONS: \n");
+        printf("\t-q: Sets the amount of questions to be quizzed on (random)\n");
         printf("\t--help: Displays how to use the program\n");
         printf("\t--cli: Starts program in a Command Line Interface.\n");
         return 0;
     }
-    else if(args[1] == "--cli"){
-        cli_version();
-        return 0;
+    
+    for(unsigned i = 0; i < argc; i++){
+        if(argv[i] == "--cli"){
+            cli_version();
+            return 0;
+        }
+        if(argv[i] == "-q"){
+            numOfQuestions = std::stoi(argv[i+1]);
+            i++;
+        }
     }
 
     // Starting the GUI Version

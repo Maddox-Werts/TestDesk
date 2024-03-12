@@ -20,7 +20,6 @@ public:
   Tester_CLI();
 
   // Functions
-  void MainMenu(Quiz quiz);
   void AskQuestions(Quiz quiz, int num);
 
   static int Letter2Number(const char* letter);
