@@ -86,14 +86,16 @@ void Tester_GUI::Instantiate(){
 
   // Adding buttons for each question response
   for(unsigned int i = 0; i < this->quiz->qGet()->responses.size(); i++){
-    Fl_Radio_Round_Button* nRB = new Fl_Radio_Round_Button(45, 145+(i*30), 15, 15);
+    std::string qResponse = this->quiz->qGet()->responses[i];
+    
+    Fl_Radio_Round_Button* nRB = new Fl_Radio_Round_Button(45, 145+(i*40), 700, 25);
 
     nRB->labeltype(FL_NORMAL_LABEL);
     nRB->label(this->quiz->qGet()->responses[i].c_str());
 
     nRB->box(FL_NO_BOX);
     nRB->down_box(FL_ROUND_DOWN_BOX);
-    nRB->align(FL_ALIGN_RIGHT);
+    nRB->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE|FL_ALIGN_WRAP|FL_ALIGN_CLIP);
 
     this->questionButtons.push_back(nRB);
   }
@@ -116,14 +118,16 @@ void Tester_GUI::Populate(){
 
   // Adding new question buttons
   for(unsigned int i = 0; i < this->quiz->qGet()->responses.size(); i++){
-    Fl_Radio_Round_Button* nRB = new Fl_Radio_Round_Button(45, 145+(i*30), 15, 15);
+    std::string qResponse = this->quiz->qGet()->responses[i];
+    
+    Fl_Radio_Round_Button* nRB = new Fl_Radio_Round_Button(45, 145+(i*40), 700, 40);
 
     nRB->labeltype(FL_NORMAL_LABEL);
     nRB->label(this->quiz->qGet()->responses[i].c_str());
 
     nRB->box(FL_NO_BOX);
     nRB->down_box(FL_ROUND_DOWN_BOX);
-    nRB->align(FL_ALIGN_RIGHT);
+    nRB->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE|FL_ALIGN_WRAP|FL_ALIGN_CLIP);
 
     this->questionButtons.push_back(nRB);
     Window::instance->getWindow()->add(nRB);
