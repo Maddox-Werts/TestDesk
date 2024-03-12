@@ -1,0 +1,40 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0309
+header_name {.h}
+code_name {.cxx}
+Function {make_window()} {open
+} {
+  Fl_Window {} {
+    label TestDesk open
+    xywh {1141 395 770 495} type Double visible
+  } {
+    Fl_Box {} {
+      label {CompTIA A+ (1101)}
+      xywh {10 10 5 30} labelsize 24 align 8
+    }
+    Fl_Box {} {
+      label {75%} selected
+      xywh {240 100 215 30} labelsize 24 align 16
+    }
+    Fl_Box {} {
+      label {30/40}
+      xywh {240 130 215 30} labelsize 16
+    }
+    Fl_Box {} {
+      label {Question 10}
+      xywh {10 190 5 20} align 8
+    }
+    Fl_Box {} {
+      label {Which of the following would an administrator use to migrate virtual machines from on premises to the cloud?}
+      xywh {40 210 690 70} align 212
+    }
+    Fl_Box {} {
+      label {You Said: SaaS}
+      xywh {40 280 5 20} align 8
+    }
+    Fl_Box {} {
+      label {Correct Answer: IaaS}
+      xywh {40 300 5 20} align 8
+    }
+  }
+}

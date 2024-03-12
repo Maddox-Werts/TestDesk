@@ -144,6 +144,17 @@ void Tester_GUI::EndTest(){
   for(unsigned int i = 0; i < this->questionButtons.size(); i++){
     Window::instance->getWindow()->remove(questionButtons[i]);
   }
+  
+  // Scoring the test
+  Score score = Tester_GUI::instance->quiz->qScore();
 
+  // Adding new elements
+  Fl_Box* title = new Fl_Box(240, 100, 215, 30);
+  title->labeltype(FL_NORMAL_LABEL);
+  title->label((std::to_string(score.percentage) + "%").c_str());
+  title->labelsize(24);
+  Window::instance->getWindow()->add(title);
+
+  // Redraw
   Window::instance->getWindow()->redraw();
 }

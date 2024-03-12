@@ -1,0 +1,36 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0309
+header_name {.h}
+code_name {.cxx}
+Function {make_window()} {open
+} {
+  Fl_Window {} {
+    label TestDesk open selected
+    xywh {1099 349 770 525} type Double color 48 labelcolor 48 visible
+  } {
+    Fl_Box {} {
+      label {CompTIA A+ (1101)}
+      xywh {10 10 5 30} labelsize 24 align 8
+    }
+    Fl_Box {} {
+      label {Which of the following would an administrator use to migrate virtual machines from on premises to the cloud?}
+      xywh {20 45 730 85} align 212
+    }
+    Fl_Round_Button {} {
+      label laaS
+      xywh {45 145 15 25} down_box ROUND_DOWN_BOX
+    }
+    Fl_Round_Button {} {
+      label SaaS
+      xywh {45 175 55 25} down_box ROUND_DOWN_BOX
+    }
+    Fl_Round_Button {} {
+      label DBaaS
+      xywh {45 205 65 25} down_box ROUND_DOWN_BOX
+    }
+    Fl_Round_Button {} {
+      label DRaaS
+      xywh {45 235 65 25} down_box ROUND_DOWN_BOX
+    }
+  }
+}
