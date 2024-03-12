@@ -12,6 +12,8 @@
 #include <FL/Fl_Radio_Button.H>
 #include <FL/Fl_Radio_Round_Button.H>
 #include <FL/Fl_Button.H>
+#include <FL/Fl_Scroll.H>
+#include <FL/Fl_Group.H>
 
 // Classes
 class Window{

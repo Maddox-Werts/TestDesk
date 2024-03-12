@@ -152,20 +152,111 @@ void Tester_GUI::EndTest(){
   // Scoring the test
   Score score = Tester_GUI::instance->quiz->qScore();
 
-  // Adding new elements
-  Fl_Box* title = new Fl_Box(240, 100, 215, 30);
-  title->labeltype(FL_NORMAL_LABEL);
-  title->labelsize(24);
+  // Adding the top section
+  if(true){
+    // Adding new elements
+    Fl_Box* title = new Fl_Box(270, 100, 215, 30);
+    title->labeltype(FL_NORMAL_LABEL);
+    title->labelsize(24);
 
-  // Adding percentage in a weird way
-  if(score.percentage < 75){
-    title->label("Failed Test.");
-  }
-  else{
-    title->label("Passed Test.");
+    // Adding percentage in a weird way
+    std::string qTitleText = "";
+
+    if(score.percentage < 75){
+      qTitleText += "Failed";
+    }
+    else{
+      qTitleText += "Passed";
+    }
+
+    qTitleText += " (";
+
+    std::string percent_raw = std::to_string(score.percentage);
+    qTitleText += percent_raw.substr(0, percent_raw.length() - 4);
+
+    qTitleText += "%)";
+
+    char* qTitleFinal = new char[qTitleText.length() + 1];
+    strcpy(qTitleFinal, qTitleText.c_str());
+
+    title->label(qTitleFinal);
+    Window::instance->getWindow()->add(title);
+
+    // The questions you got right and wrong
+    Fl_Box* qRatio = new Fl_Box(270, 130, 215, 30);
+    qRatio->labeltype(FL_NORMAL_LABEL);
+    qRatio->labelsize(16);
+
+    std::string qRatioText = "";
+    qRatioText += std::string(std::to_string(score.correct));
+    qRatioText += " / ";
+    qRatioText += std::to_string(score.correct + score.incorrect);
+
+    char* qRatioFinal = new char[qRatioText.length() + 1];
+    strcpy(qRatioFinal, qRatioText.c_str());
+
+    qRatio->label(qRatioFinal);
+    Window::instance->getWindow()->add(qRatio);
   }
 
-  Window::instance->getWindow()->add(title);
+  // Adding the missed answers section
+  if(true){
+    Fl_Scroll* missedQuestions = new Fl_Scroll(10, 200, 750, 280);
+    missedQuestions->labelsize(19);
+    missedQuestions->label("Missed Questions");
+    Window::instance->getWindow()->add(missedQuestions);
+
+    // Going through all missed questions
+    for(unsigned int i = 0; i < score.qIncorrect.size(); i++){
+      // The container
+      Fl_Group* mQuestion = new Fl_Group(20, 225 + (i*175), 730, 150);
+      mQuestion->labelsize(14);
+
+      std::string mQuestionTitle = "Question ";
+      mQuestionTitle += std::to_string(score.iIncorrect[i]+1);
+
+      char* mQuestionFinal = new char[mQuestionTitle.length() + 1];
+      strcpy(mQuestionFinal, mQuestionTitle.c_str());
+
+      mQuestion->label(mQuestionFinal);
+      missedQuestions->add(mQuestion);
+
+      // Question prompt
+      Fl_Box* mPrompt = new Fl_Box(25, 230 + (i*180), 710, 100);
+      mPrompt->align(FL_ALIGN_CLIP|FL_ALIGN_WRAP|FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+      mPrompt->labelsize(14);
+      mPrompt->label(score.qIncorrect[i]->prompt.c_str());
+      mQuestion->add(mPrompt);
+
+      // You said
+      Fl_Box* mYouSaid = new Fl_Box(40, 330 + (i*180), 5, 20);
+      mYouSaid->align(FL_ALIGN_RIGHT);
+      mYouSaid->labelsize(14);
+
+      std::string mYouSaidText = "You Said: ";
+      mYouSaidText += score.qIncorrect[i]->responses[score.aIncorrect[i]];
+
+      char* mYouSaidFinal = new char[mYouSaidText.length() + 1];
+      strcpy(mYouSaidFinal, mYouSaidText.c_str());
+
+      mYouSaid->label(mYouSaidFinal);
+      mQuestion->add(mYouSaid);
+
+      // Correct
+      Fl_Box* mCorrect = new Fl_Box(40, 350 + (i*180), 5, 20);
+      mCorrect->align(FL_ALIGN_RIGHT);
+      mCorrect->labelsize(14);
+
+      std::string mCorrectText = "Correct: ";
+      mCorrectText += score.qIncorrect[i]->responses[score.qIncorrect[i]->correct];
+
+      char* mCorrectFinal = new char[mCorrectText.length() + 1];
+      strcpy(mCorrectFinal, mCorrectText.c_str());
+
+      mCorrect->label(mCorrectFinal);
+      mQuestion->add(mCorrect);
+    }
+  }
 
   // Redraw
   Window::instance->getWindow()->redraw();
