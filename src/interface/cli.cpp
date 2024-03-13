@@ -16,6 +16,14 @@ Tester_CLI::Tester_CLI(){
 }
 
 // Functions
+int Tester_CLI::Letter2Number(const char* letter){
+  for(unsigned int i = 0; i < indexes.size(); i++){
+    if(indexes[i] == letter){
+      return i;
+    }
+  }
+  return -1;
+}
 void Tester_CLI::AskQuestions(Quiz quiz, int num){
   // Displaying questions
   quiz.qCurrent = 0;
