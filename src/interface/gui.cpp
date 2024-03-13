@@ -16,6 +16,10 @@ void btnNext(Fl_Widget*, void* data){
       Tester_GUI::instance->quiz->qAnswer(i);
       Tester_GUI::instance->quiz->qCurrent++;
 
+      if(Tester_GUI::instance->quiz->qCurrent == Tester_GUI::instance->quiz->qSize() - 1){
+        Tester_GUI::instance->LastQuestion();
+      }
+
       // Do we have more questions?
       if(Tester_GUI::instance->quiz->qCurrent < Tester_GUI::instance->quiz->qSize()){
         // Updating the question board
@@ -89,12 +93,6 @@ void Tester_GUI::Instantiate(){
   this->g_exam_next->label("Next");
   this->g_exam_next->box(FL_UP_BOX);
 
-  // Adding back button
-  this->g_exam_back = new Fl_Button(635, 485, 60, 30);
-  this->g_exam_back->labeltype(FL_NORMAL_LABEL);
-  this->g_exam_back->label("Back");
-  this->g_exam_back->box(FL_UP_BOX);
-
   // Adding buttons for each question response
   for(unsigned int i = 0; i < this->quiz->qGet()->responses.size(); i++){
     std::string qResponse = this->quiz->qGet()->responses[i];
@@ -164,6 +162,10 @@ void Tester_GUI::gNav(int dir){
   }
 }
 
+void Tester_GUI::LastQuestion(){
+  printf("LAST QUESTION\n");
+  this->g_exam_next->label("Submit");
+}
 void Tester_GUI::EndTest(){
   // DEBUG
   printf("Your exam has ended.\n");

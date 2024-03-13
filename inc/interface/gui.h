@@ -78,6 +78,7 @@ public:
   void gPopulate();
   void gNav(int dir);
 
+  void LastQuestion();
   void EndTest();
 };
 
