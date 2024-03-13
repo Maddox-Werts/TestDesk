@@ -5,12 +5,13 @@
 #include <interface/gui.h>
 
 // Variables
+std::string quizPath = "data/exams/";
 int numOfQuestions = 15;
 
 // Functions
 void cli_version(){
     // Loading a new test
-    Quiz quiz = Quiz("data/exams/CompTIA 1101.json", numOfQuestions);
+    Quiz quiz = Quiz(quizPath.c_str(), numOfQuestions);
 
     // Init application
     Tester_CLI cli;
@@ -20,7 +21,7 @@ void cli_version(){
 }
 int gui_version(int argc, char* argv[]){
     // Loading a quiz
-    Quiz* quiz = new Quiz("data/exams/CompTIA 1101.json", numOfQuestions);
+    Quiz* quiz = new Quiz(quizPath.c_str(), numOfQuestions);
 
     // Creating the window app
     Window::instance = new Window("TestDesk", 770, 525);
@@ -48,6 +49,7 @@ int main(int argc, char* argv[]){
     if(args[1] == "--help"){
         printf("Usage: TestDesk [OPTIONS]\n");
         printf("OPTIONS: \n");
+        printf("\t-t: Sets the test you want to use (ex: CompTIA 1101)\n");
         printf("\t-q: Sets the amount of questions to be quizzed on (random)\n");
         printf("\t--help: Displays how to use the program\n");
         printf("\t--cli: Starts program in a Command Line Interface.\n");
@@ -66,6 +68,11 @@ int main(int argc, char* argv[]){
         }
         if(arg_string == "-q"){
             numOfQuestions = std::stoi(argv[i+1]);
+            i++;
+        }
+        if(arg_string == "-t"){
+            quizPath += argv[i+1];
+            quizPath += ".json";
             i++;
         }
     }

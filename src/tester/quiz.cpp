@@ -49,8 +49,10 @@ Quiz::Quiz(const char* quizPath, int wantedQuestions){
 
   // Adding 15 random questions from that list
   for(unsigned int i = 0; i < wantedQuestions; i++){
-    int qIndex = std::rand() % (tquestions.size() + 1);
-    this->questions.push_back(tquestions[qIndex]);
+    int qIndex = std::rand() % (tquestions.size());
+    if(tquestions[qIndex] != nullptr){
+      this->questions.push_back(tquestions[qIndex]);
+    }
   }
 }
 
