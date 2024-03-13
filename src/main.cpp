@@ -54,12 +54,17 @@ int main(int argc, char* argv[]){
         return 0;
     }
     
+    // Getting typed arguments
     for(unsigned i = 0; i < argc; i++){
-        if(argv[i] == "--cli"){
+        // Converting the char array into a string
+        std::string arg_string = std::string(argv[i]);
+        
+        // What do we want?
+        if(arg_string == "--cli"){
             cli_version();
             return 0;
         }
-        if(argv[i] == "-q"){
+        if(arg_string == "-q"){
             numOfQuestions = std::stoi(argv[i+1]);
             i++;
         }
