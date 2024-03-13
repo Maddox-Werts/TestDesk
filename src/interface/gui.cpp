@@ -77,8 +77,13 @@ void Window::Show(int argc, char* argv[]){
 }
 
 void Tester_GUI::Instantiate(){
+  // Title
+  std::string promptText = std::to_string(this->quiz->qCurrent+1) +") " + this->quiz->qGet()->prompt;
+  char* promptFinal = new char[promptText.length() + 1];
+  strcpy(promptFinal, promptText.c_str());
+
   // Adding a exam question
-  this->g_exam_question = new Fl_Box(20, 45, 730, 85, this->quiz->qGet()->prompt.c_str());
+  this->g_exam_question = new Fl_Box(20, 45, 730, 85, promptFinal);
   this->g_exam_question->align(FL_ALIGN_LEFT|FL_ALIGN_CLIP|FL_ALIGN_WRAP|FL_ALIGN_INSIDE);
   this->g_exam_question->labelsize(14);
 
@@ -113,8 +118,13 @@ void Tester_GUI::Instantiate(){
   this->g_exam_next->callback(btnNext, (void*)&this->questionButtons);
 }
 void Tester_GUI::Populate(){
+  // Title
+  std::string promptText = std::to_string(this->quiz->qCurrent+1) +") " + this->quiz->qGet()->prompt;
+  char* promptFinal = new char[promptText.length() + 1];
+  strcpy(promptFinal, promptText.c_str());
+
   // Setting the question title
-  this->g_exam_question->label(this->quiz->qGet()->prompt.c_str());
+  this->g_exam_question->label(promptFinal);
 
   // Clearing the existing answers
   for(unsigned int i = 0; i < questionButtons.size(); i++){
