@@ -6,7 +6,7 @@ Function {make_window()} {open
 } {
   Fl_Window {} {
     label TestDesk open
-    xywh {897 353 770 495} type Double visible
+    xywh {613 329 770 525} type Double visible
   } {
     Fl_Box {} {
       label {CompTIA A+ (1101)}
@@ -22,11 +22,11 @@ Function {make_window()} {open
     }
     Fl_Scroll {} {
       label {Missed Questions} open
-      xywh {10 200 750 280} labelsize 19
+      xywh {5 200 760 315} labelsize 19
     } {
       Fl_Group {} {
         label {Question 13} open
-        xywh {20 225 730 150}
+        xywh {5 225 760 290}
       } {
         Fl_Box {} {
           label {A technician installed a new router at a small office. After the Installation, the technician notices that all devices have a I69.254.x.x IP address. Printers and fileshares are still working, but PCs cannot access the Internet. Which of the following should the technician configure on the router to enable devices to connect to the internet?}
@@ -37,8 +37,20 @@ Function {make_window()} {open
           xywh {40 330 5 20} align 8
         }
         Fl_Box {} {
-          label {Correct: DNS} selected
+          label {Correct: DNS}
           xywh {40 350 5 20} align 8
+        }
+        Fl_Button {} {
+          label Quit
+          xywh {5 485 80 30}
+        }
+        Fl_Button {} {
+          label Next
+          xywh {680 485 80 30}
+        }
+        Fl_Button {} {
+          label Back
+          xywh {595 485 80 30}
         }
       }
     }

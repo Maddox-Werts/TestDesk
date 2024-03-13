@@ -2,7 +2,7 @@
 #include <interface/gui.h>
 
 // Functions
-void onBTNclick(Fl_Widget*, void* data){
+void btnNext(Fl_Widget*, void* data){
   // Getting info from data
   std::vector<Fl_Radio_Round_Button*> *buttons = (std::vector<Fl_Radio_Round_Button*> *)data;
 
@@ -27,6 +27,17 @@ void onBTNclick(Fl_Widget*, void* data){
       }
     }
   }
+}
+void btnQuit(Fl_Widget*, void* data){
+  exit(EXIT_SUCCESS);
+}
+void btnGNext(Fl_Widget*, void* data){
+  Tester_GUI::instance->gNav(1);
+  Tester_GUI::instance->gPopulate();
+}
+void btnGBack(Fl_Widget*, void* data){
+  Tester_GUI::instance->gNav(-1);
+  Tester_GUI::instance->gPopulate();
 }
 
 // Statics
@@ -101,7 +112,7 @@ void Tester_GUI::Instantiate(){
   }
 
   // Next Callback
-  this->g_exam_next->callback(onBTNclick, (void*)&this->questionButtons);
+  this->g_exam_next->callback(btnNext, (void*)&this->questionButtons);
 }
 void Tester_GUI::Populate(){
   // Setting the question title
@@ -135,6 +146,22 @@ void Tester_GUI::Populate(){
 
   // After Adding more elements
   Window::instance->getWindow()->redraw();
+}
+
+void Tester_GUI::gPopulate(){
+  this->g_grade_header->label(mQuestions[gCurrent].title);
+  this->g_grade_prompt->label(mQuestions[gCurrent].prompt);
+  this->g_grade_user->label(mQuestions[gCurrent].user);
+  this->g_grade_correct->label(mQuestions[gCurrent].correct);
+}
+void Tester_GUI::gNav(int dir){
+  this->gCurrent += dir;
+  if(this->gCurrent > gMax - 1){
+    this->gCurrent = 0;
+  }
+  else if(this->gCurrent < 0){
+    this->gCurrent = gMax - 1;
+  }
 }
 
 void Tester_GUI::EndTest(){
@@ -201,62 +228,95 @@ void Tester_GUI::EndTest(){
 
   // Adding the missed answers section
   if(true){
-    Fl_Scroll* missedQuestions = new Fl_Scroll(10, 200, 750, 280);
-    missedQuestions->labelsize(19);
-    missedQuestions->label("Missed Questions");
-    Window::instance->getWindow()->add(missedQuestions);
+    // FUNCTION
+    gMax = score.qIncorrect.size();
 
-    // Going through all missed questions
-    for(unsigned int i = 0; i < score.qIncorrect.size(); i++){
-      // The container
-      Fl_Group* mQuestion = new Fl_Group(20, 225 + (i*175), 730, 150);
-      mQuestion->labelsize(14);
+    mQuestions.clear();
+    for(unsigned int i = 0; i < gMax; i++){
+      // Title
+      std::string titleText = "Question ";
+      titleText += std::to_string(score.iIncorrect[i]+1);
+      char* titleFinal = new char[titleText.length() + 1];
+      strcpy(titleFinal, titleText.c_str());
 
-      std::string mQuestionTitle = "Question ";
-      mQuestionTitle += std::to_string(score.iIncorrect[i]+1);
+      // Prompt
+      std::string promptText = score.qIncorrect[i]->prompt;
+      char* promptFinal = new char[promptText.length() + 1];
+      strcpy(promptFinal, promptText.c_str());
 
-      char* mQuestionFinal = new char[mQuestionTitle.length() + 1];
-      strcpy(mQuestionFinal, mQuestionTitle.c_str());
-
-      mQuestion->label(mQuestionFinal);
-      missedQuestions->add(mQuestion);
-
-      // Question prompt
-      Fl_Box* mPrompt = new Fl_Box(25, 230 + (i*180), 710, 100);
-      mPrompt->align(FL_ALIGN_CLIP|FL_ALIGN_WRAP|FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
-      mPrompt->labelsize(14);
-      mPrompt->label(score.qIncorrect[i]->prompt.c_str());
-      mQuestion->add(mPrompt);
-
-      // You said
-      Fl_Box* mYouSaid = new Fl_Box(40, 330 + (i*180), 5, 20);
-      mYouSaid->align(FL_ALIGN_RIGHT);
-      mYouSaid->labelsize(14);
-
+      // You Said
       std::string mYouSaidText = "You Said: ";
       mYouSaidText += score.qIncorrect[i]->responses[score.aIncorrect[i]];
-
       char* mYouSaidFinal = new char[mYouSaidText.length() + 1];
       strcpy(mYouSaidFinal, mYouSaidText.c_str());
 
-      mYouSaid->label(mYouSaidFinal);
-      mQuestion->add(mYouSaid);
-
       // Correct
-      Fl_Box* mCorrect = new Fl_Box(40, 350 + (i*180), 5, 20);
-      mCorrect->align(FL_ALIGN_RIGHT);
-      mCorrect->labelsize(14);
-
       std::string mCorrectText = "Correct: ";
       mCorrectText += score.qIncorrect[i]->responses[score.qIncorrect[i]->correct];
-
       char* mCorrectFinal = new char[mCorrectText.length() + 1];
       strcpy(mCorrectFinal, mCorrectText.c_str());
 
-      mCorrect->label(mCorrectFinal);
-      mQuestion->add(mCorrect);
+      // New missed question
+      MissedQuestion mq = MissedQuestion();
+      mq.title = titleFinal;
+      mq.prompt = promptFinal;
+      mq.user = mYouSaidFinal;
+      mq.correct = mCorrectFinal;
+
+      // Pushing back final result
+      mQuestions.push_back(mq);
+    }
+
+    // UI
+    if(mQuestions.size() > 0){
+      Fl_Group* missedQuestions = new Fl_Group(10, 200, 750, 280);
+      missedQuestions->labelsize(19);
+      missedQuestions->label("Missed Questions");
+      Window::instance->getWindow()->add(missedQuestions);
+
+      // Going through all missed questions
+      this->g_grade_header = new Fl_Group(20, 225, 730, 150);
+      this->g_grade_header->labelsize(14);
+      this->g_grade_header->label(mQuestions[0].title);
+      missedQuestions->add(this->g_grade_header);
+
+      // Question prompt
+      this->g_grade_prompt = new Fl_Box(25, 230, 710, 100);
+      this->g_grade_prompt->align(FL_ALIGN_CLIP|FL_ALIGN_WRAP|FL_ALIGN_LEFT|FL_ALIGN_INSIDE);
+      this->g_grade_prompt->labelsize(14);
+      this->g_grade_prompt->label(mQuestions[0].prompt);
+      this->g_grade_header->add(this->g_grade_prompt);
+
+      // You said
+      this->g_grade_user = new Fl_Box(40, 330, 5, 20);
+      this->g_grade_user->align(FL_ALIGN_RIGHT);
+      this->g_grade_user->labelsize(14);
+      this->g_grade_user->label(mQuestions[0].user);
+      this->g_grade_header->add(this->g_grade_user);
+
+      // Correct
+      this->g_grade_correct = new Fl_Box(40, 350, 5, 20);
+      this->g_grade_correct->align(FL_ALIGN_RIGHT);
+      this->g_grade_correct->labelsize(14);
+      this->g_grade_correct->label(mQuestions[0].correct);
+      this->g_grade_header->add(this->g_grade_correct);
+
+      // Next
+      Fl_Button* next = new Fl_Button(680, 485, 80, 30, "Next");
+      next->callback(btnGNext);
+      Window::instance->getWindow()->add(next);
+
+      // Next
+      Fl_Button* back = new Fl_Button(595, 485, 80, 30, "Back");
+      back->callback(btnGBack);
+      Window::instance->getWindow()->add(back);
     }
   }
+
+  // Adding quit button
+  Fl_Button* quit = new Fl_Button(10, 485, 80, 30, "Quit");
+  quit->callback(btnQuit);
+  Window::instance->getWindow()->add(quit);
 
   // Redraw
   Window::instance->getWindow()->redraw();

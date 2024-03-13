@@ -15,6 +15,15 @@
 #include <FL/Fl_Scroll.H>
 #include <FL/Fl_Group.H>
 
+// Structures
+typedef struct MissedQuestion{
+  // Variables
+  char* title;
+  char* prompt;
+  char* user;
+  char* correct;
+} MissedQuestion;
+
 // Classes
 class Window{
 private:
@@ -39,10 +48,16 @@ private:
   // Variables
   Fl_Button* g_exam_next;
   Fl_Button* g_exam_back;
-
   Fl_Box* g_exam_title;
   Fl_Box* g_exam_question;
   std::vector<Fl_Radio_Round_Button*> questionButtons;
+
+  std::vector<MissedQuestion> mQuestions;
+  Fl_Group* g_grade_header;
+  Fl_Box* g_grade_prompt;
+  Fl_Box* g_grade_user;
+  Fl_Box* g_grade_correct;
+  int gCurrent, gMax;
 
   // Functions
 
@@ -59,6 +74,9 @@ public:
   // Functions
   void Instantiate();
   void Populate();
+
+  void gPopulate();
+  void gNav(int dir);
 
   void EndTest();
 };
