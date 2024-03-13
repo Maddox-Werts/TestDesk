@@ -1,0 +1,36 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0309
+header_name {.h}
+code_name {.cxx}
+Function {make_window()} {open
+} {
+  Fl_Window {} {
+    label TestDesk open selected
+    xywh {549 227 770 525} type Double visible
+  } {
+    Fl_Box {} {
+      label TestDesk
+      xywh {205 35 335 50} labelsize 42
+    }
+    Fl_Box {} {
+      label {The simple study assistant.}
+      xywh {275 80 200 25}
+    }
+    Fl_Input {} {
+      label {Quiz Name}
+      xywh {285 227 180 28}
+    }
+    Fl_Button {} {
+      label Start
+      xywh {285 290 180 30}
+    }
+    Fl_Value_Input {} {
+      label Questions
+      xywh {285 257 180 28}
+    }
+    Fl_Box {} {
+      label {Created by OBJNULL (Maddox Werts)}
+      xywh {0 505 255 20}
+    }
+  }
+}

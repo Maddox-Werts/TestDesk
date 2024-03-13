@@ -14,6 +14,8 @@
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Scroll.H>
 #include <FL/Fl_Group.H>
+#include <FL/Fl_Input.H>
+#include <FL/Fl_Value_Input.H>
 
 // Structures
 typedef struct MissedQuestion{
@@ -23,6 +25,10 @@ typedef struct MissedQuestion{
   char* user;
   char* correct;
 } MissedQuestion;
+typedef struct HubData{
+  Fl_Input* name;
+  Fl_Value_Input* questions;
+} HubData;
 
 // Classes
 class Window{
@@ -43,6 +49,27 @@ public:
   void Show(int argc, char* argv[]);
 };
 
+class Hub_GUI{
+private:
+  // Variables
+  Fl_Box* title;
+  Fl_Box* subtitle;
+  Fl_Box* credits;
+  Fl_Input* quizName;
+  Fl_Value_Input* numQuestions;
+  Fl_Button* start;
+
+  // Functions
+public:
+  // Variables
+  static Hub_GUI* instance;
+
+  // Constructors
+  Hub_GUI();
+
+  // Functions
+  void Clean();
+};
 class Tester_GUI{
 private:
   // Variables

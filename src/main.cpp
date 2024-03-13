@@ -7,6 +7,7 @@
 // Variables
 std::string quizPath = "data/exams/";
 int numOfQuestions = 15;
+int flagsSet = 0;
 
 // Functions
 void cli_version(){
@@ -20,14 +21,19 @@ void cli_version(){
     cli.AskQuestions(quiz, numOfQuestions);
 }
 int gui_version(int argc, char* argv[]){
-    // Loading a quiz
-    Quiz* quiz = new Quiz(quizPath.c_str(), numOfQuestions);
-
     // Creating the window app
     Window::instance = new Window("TestDesk", 770, 525);
 
-    // Creating the GUI
-    Tester_GUI::instance = new Tester_GUI(quiz);
+    if(flagsSet >= 2){
+        // Loading a quiz
+        Quiz* quiz = new Quiz(quizPath.c_str(), numOfQuestions);
+
+        // Creating the GUI
+        Tester_GUI::instance = new Tester_GUI(quiz);
+    }
+    else{
+        Hub_GUI::instance = new Hub_GUI();
+    }
 
     // Finalizing and showing the window after creating GUI elements
     Window::instance->Update();
@@ -69,11 +75,13 @@ int main(int argc, char* argv[]){
         if(arg_string == "-q"){
             numOfQuestions = std::stoi(argv[i+1]);
             i++;
+            flagsSet++;
         }
         if(arg_string == "-t"){
             quizPath += argv[i+1];
             quizPath += ".json";
             i++;
+            flagsSet++;
         }
     }
 

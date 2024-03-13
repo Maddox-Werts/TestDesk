@@ -43,9 +43,30 @@ void btnGBack(Fl_Widget*, void* data){
   Tester_GUI::instance->gNav(-1);
   Tester_GUI::instance->gPopulate();
 }
+void btnHStart(Fl_Widget*, void* data){
+  // Cast
+  HubData* hData = (HubData*)data;
+
+  // Getting values
+  const char* quizName = hData->name->value();
+  int quizAmount = (int)(floor(hData->questions->value()));
+
+  // Loading a quiz
+  Quiz* quiz = new Quiz(("data/exams/" + std::string(quizName) + ".json").c_str(), quizAmount);
+
+  // Cleanup
+  Hub_GUI::instance->Clean();
+
+  // Creating the GUI
+  Tester_GUI::instance = new Tester_GUI(quiz);
+
+  // Redrawing the window
+  Window::instance->getWindow()->redraw();
+}
 
 // Statics
 Window* Window::instance;
+Hub_GUI* Hub_GUI::instance;
 Tester_GUI* Tester_GUI::instance;
 
 // Variables
@@ -57,6 +78,32 @@ Fl_Window* Window::getWindow(){
 Window::Window(const char* title, int w, int h){
   // Creating a window
   this->window = new Fl_Window(w, h, title);
+}
+Hub_GUI::Hub_GUI(){
+  // Title
+  this->title = new Fl_Box(205, 35, 335, 50, "TestDesk");
+  title->labelsize(42);
+
+  // Subtitle
+  this->subtitle = new Fl_Box(275, 80, 200, 25, "The simple study assistant.");
+  subtitle->labelsize(14);
+
+  // Credits
+  this->credits = new Fl_Box(0, 505, 255, 20, "Created by OBJNULL (Maddox Werts)");
+  credits->labelsize(14);
+
+  // Quiz Name
+  this->quizName = new Fl_Input(285, 227, 180, 28, "Quiz Name");
+  
+  // Question amounts
+  this->numQuestions = new Fl_Value_Input(285, 257, 180, 28, "Questions");
+
+  // Start button
+  this->start = new Fl_Button(310, 290, 120, 30, "Start");
+
+  HubData* data = new HubData{quizName, numQuestions};
+
+  start->callback(btnHStart, (void*)data);
 }
 Tester_GUI::Tester_GUI(Quiz* quiz){
   // Setting Quiz pointer
@@ -76,6 +123,16 @@ void Window::Show(int argc, char* argv[]){
   this->window->show(argc, argv);
 }
 
+void Hub_GUI::Clean(){
+  Window::instance->getWindow()->remove(this->title);
+  Window::instance->getWindow()->remove(this->subtitle);
+  Window::instance->getWindow()->remove(this->credits);
+  Window::instance->getWindow()->remove(this->quizName);
+  Window::instance->getWindow()->remove(this->numQuestions);
+  Window::instance->getWindow()->remove(this->start);
+  Window::instance->getWindow()->redraw();
+}
+
 void Tester_GUI::Instantiate(){
   // Title
   std::string promptText = std::to_string(this->quiz->qCurrent+1) +") " + this->quiz->qGet()->prompt;
@@ -86,17 +143,20 @@ void Tester_GUI::Instantiate(){
   this->g_exam_question = new Fl_Box(20, 45, 730, 85, promptFinal);
   this->g_exam_question->align(FL_ALIGN_LEFT|FL_ALIGN_CLIP|FL_ALIGN_WRAP|FL_ALIGN_INSIDE);
   this->g_exam_question->labelsize(14);
+  Window::instance->getWindow()->add(this->g_exam_question);
 
   // Adding a exam title
   this->g_exam_title = new Fl_Box(10, 10, 5, 30, this->quiz->name.c_str());
   this->g_exam_title->align(FL_ALIGN_RIGHT);
   this->g_exam_title->labelsize(24);
+  Window::instance->getWindow()->add(this->g_exam_title);
 
   // Adding next button
   this->g_exam_next = new Fl_Button(700, 485, 60, 30);
   this->g_exam_next->labeltype(FL_NORMAL_LABEL);
   this->g_exam_next->label("Next");
   this->g_exam_next->box(FL_UP_BOX);
+  Window::instance->getWindow()->add(this->g_exam_next);
 
   // Adding buttons for each question response
   for(unsigned int i = 0; i < this->quiz->qGet()->responses.size(); i++){
@@ -112,6 +172,7 @@ void Tester_GUI::Instantiate(){
     nRB->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE|FL_ALIGN_WRAP|FL_ALIGN_CLIP);
 
     this->questionButtons.push_back(nRB);
+    Window::instance->getWindow()->add(nRB);
   }
 
   // Next Callback
