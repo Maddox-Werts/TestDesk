@@ -48,10 +48,31 @@ Quiz::Quiz(const char* quizPath, int wantedQuestions){
   srand(time(NULL));
 
   // Adding 15 random questions from that list
-  for(unsigned int i = 0; i < wantedQuestions; i++){
+  int i = 0;
+  std::vector<int> usedQuestions;
+  while(i < wantedQuestions){
+    // Wanted question index
     int qIndex = std::rand() % (tquestions.size());
-    if(tquestions[qIndex] != nullptr){
+
+    // Did we already call it?
+    bool alreadyUsed = false;
+    for(int j = 0; j < usedQuestions.size(); j++){
+      if(usedQuestions[j] == qIndex){
+        alreadyUsed = true;
+        break;
+      }
+    }
+    
+    // Adding question to index
+    if(!alreadyUsed
+    && tquestions[qIndex] != nullptr){
       this->questions.push_back(tquestions[qIndex]);
+      i++;
+    }
+
+    // Already got our questions?
+    if(i >= wantedQuestions){
+      break;
     }
   }
 }
