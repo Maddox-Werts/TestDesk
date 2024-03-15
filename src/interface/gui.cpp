@@ -182,8 +182,19 @@ void Hub_GUI::Clean(){
 }
 
 void Tester_GUI::Instantiate(){
+  // Progress
+  this->g_exam_progress = new Fl_Box(760, 5, 13, 20);
+  this->g_exam_progress->align(FL_ALIGN_LEFT);
+
+  std::string progressText = "Question " + std::to_string(this->quiz->qCurrent+1) + " / " + std::to_string(this->quiz->qSize());
+  char* progressFinal = new char[progressText.length() + 1];
+  strcpy(progressFinal, progressText.c_str());
+
+  this->g_exam_progress->label(progressFinal);
+  Window_GUI::instance->getWindow()->add(this->g_exam_progress);
+
   // Title
-  std::string promptText = std::to_string(this->quiz->qCurrent+1) +") " + this->quiz->qGet()->prompt;
+  std::string promptText = this->quiz->qGet()->prompt;
   char* promptFinal = new char[promptText.length() + 1];
   strcpy(promptFinal, promptText.c_str());
 
@@ -227,6 +238,13 @@ void Tester_GUI::Instantiate(){
   this->g_exam_next->callback(btnNext, (void*)&this->questionButtons);
 }
 void Tester_GUI::Populate(){
+  // Progress
+  std::string progressText = "Question " + std::to_string(this->quiz->qCurrent+1) + " / " + std::to_string(this->quiz->qSize());
+  char* progressFinal = new char[progressText.length() + 1];
+  strcpy(progressFinal, progressText.c_str());
+
+  this->g_exam_progress->label(progressFinal);
+
   // Title
   std::string promptText = std::to_string(this->quiz->qCurrent+1) +") " + this->quiz->qGet()->prompt;
   char* promptFinal = new char[promptText.length() + 1];

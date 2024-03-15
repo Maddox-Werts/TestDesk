@@ -6,7 +6,7 @@ Function {make_window()} {open
 } {
   Fl_Window {} {
     label TestDesk open
-    xywh {654 328 770 525} type Double color 48 labelcolor 48 visible
+    xywh {549 227 770 525} type Double color 48 labelcolor 48 visible
   } {
     Fl_Box {} {
       label {CompTIA A+ (1101)}
@@ -29,7 +29,7 @@ Function {make_window()} {open
       xywh {45 205 250 25} down_box ROUND_DOWN_BOX
     }
     Fl_Round_Button {} {
-      label DRaaS selected
+      label DRaaS
       xywh {45 235 250 25} down_box ROUND_DOWN_BOX
     }
     Fl_Button {} {
@@ -39,6 +39,10 @@ Function {make_window()} {open
     Fl_Button {} {
       label Back
       xywh {635 485 60 30}
+    }
+    Fl_Box {} {
+      label {Question 1/2}
+      xywh {760 5 13 20} align 4
     }
   }
 }

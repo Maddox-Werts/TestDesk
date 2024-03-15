@@ -78,6 +78,7 @@ private:
   // Variables
   Fl_Button* g_exam_next;
   Fl_Button* g_exam_back;
+  Fl_Box* g_exam_progress;
   Fl_Box* g_exam_title;
   Fl_Box* g_exam_question;
   std::vector<Fl_Radio_Round_Button*> questionButtons;
