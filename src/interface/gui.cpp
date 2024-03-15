@@ -51,17 +51,19 @@ void btnHStart(Fl_Widget*, void* data){
   const char* quizName = hData->name->value();
   int quizAmount = (int)(floor(hData->questions->value()));
 
-  // Loading a quiz
-  Quiz* quiz = new Quiz(("data/exams/" + std::string(quizName) + ".json").c_str(), quizAmount);
+  if(quizAmount > 0){
+    // Loading a quiz
+    Quiz* quiz = new Quiz(("data/exams/" + std::string(quizName) + ".json").c_str(), quizAmount);
 
-  // Cleanup
-  Hub_GUI::instance->Clean();
+    // Cleanup
+    Hub_GUI::instance->Clean();
 
-  // Creating the GUI
-  Tester_GUI::instance = new Tester_GUI(quiz);
+    // Creating the GUI
+    Tester_GUI::instance = new Tester_GUI(quiz);
 
-  // Redrawing the window
-  Window_GUI::instance->getWindow()->redraw();
+    // Redrawing the window
+    Window_GUI::instance->getWindow()->redraw();
+  }
 }
 
 std::vector<std::string> split(std::string line, char delimeter){
