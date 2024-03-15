@@ -158,7 +158,7 @@ std::vector<std::string> Hub_GUI::getQuizzes(){
   for (const auto& entry : std::filesystem::recursive_directory_iterator("data/exams/")) {
     if (std::filesystem::is_regular_file(entry)) {
       // Getting the file name
-      std::string line = std::string(entry.path());
+      std::string line = std::string(entry.path().string());
       std::string strippedName = split(split(line, '/')[2], '.')[0];
 
       if(strippedName != ""){
