@@ -61,21 +61,37 @@ void btnHStart(Fl_Widget*, void* data){
   Tester_GUI::instance = new Tester_GUI(quiz);
 
   // Redrawing the window
-  Window::instance->getWindow()->redraw();
+  Window_GUI::instance->getWindow()->redraw();
+}
+
+std::vector<std::string> split(std::string line, char delimeter){
+  std::vector<std::string> splits;
+  std::string temp;
+  for(unsigned int i = 0; i < line.size(); i++){
+    if(line[i] == delimeter){
+      splits.push_back(temp);
+      temp = "";
+    }
+    else{
+      temp += line[i];
+    }
+  }
+  splits.push_back(temp);
+  return splits;
 }
 
 // Statics
-Window* Window::instance;
+Window_GUI* Window_GUI::instance;
 Hub_GUI* Hub_GUI::instance;
 Tester_GUI* Tester_GUI::instance;
 
 // Variables
-Fl_Window* Window::getWindow(){
+Fl_Window* Window_GUI::getWindow(){
   return window;
 }
 
 // Constructors
-Window::Window(const char* title, int w, int h){
+Window_GUI::Window_GUI(const char* title, int w, int h){
   // Creating a window
   this->window = new Fl_Window(w, h, title);
 }
@@ -93,7 +109,16 @@ Hub_GUI::Hub_GUI(){
   credits->labelsize(14);
 
   // Quiz Name
-  this->quizName = new Fl_Input(285, 227, 180, 28, "Quiz Name");
+  this->quizName = new Fl_Input_Choice(285, 227, 180, 28, "Quiz Name");
+
+  // Getting quiz questions
+  std::vector<std::string> quizzes = getQuizzes();
+  for(unsigned int i = 0; i < quizzes.size(); i++){
+    char* bytes = new char[quizzes[i].length() + 1];
+    strcpy(bytes, quizzes[i].c_str());
+
+    quizName->add(bytes);
+  }
   
   // Question amounts
   this->numQuestions = new Fl_Value_Input(285, 257, 180, 28, "Questions");
@@ -115,22 +140,43 @@ Tester_GUI::Tester_GUI(Quiz* quiz){
 }
 
 // Functions
-void Window::Update(){
+void Window_GUI::Update(){
   this->window->end();
 }
 
-void Window::Show(int argc, char* argv[]){
+void Window_GUI::Show(int argc, char* argv[]){
   this->window->show(argc, argv);
 }
 
+std::vector<std::string> Hub_GUI::getQuizzes(){
+  // Result object
+  std::vector<std::string> result;
+
+  // Going through exams
+  for (const auto& entry : std::filesystem::recursive_directory_iterator("data/exams/")) {
+    if (std::filesystem::is_regular_file(entry)) {
+      // Getting the file name
+      std::string line = std::string(entry.path());
+      std::string strippedName = split(split(line, '/')[2], '.')[0];
+
+      if(strippedName != ""){
+        std::cout << strippedName << "\n";
+        result.push_back(strippedName);
+      }
+    }
+  }
+
+  // Return Result
+  return result;
+}
 void Hub_GUI::Clean(){
-  Window::instance->getWindow()->remove(this->title);
-  Window::instance->getWindow()->remove(this->subtitle);
-  Window::instance->getWindow()->remove(this->credits);
-  Window::instance->getWindow()->remove(this->quizName);
-  Window::instance->getWindow()->remove(this->numQuestions);
-  Window::instance->getWindow()->remove(this->start);
-  Window::instance->getWindow()->redraw();
+  Window_GUI::instance->getWindow()->remove(this->title);
+  Window_GUI::instance->getWindow()->remove(this->subtitle);
+  Window_GUI::instance->getWindow()->remove(this->credits);
+  Window_GUI::instance->getWindow()->remove(this->quizName);
+  Window_GUI::instance->getWindow()->remove(this->numQuestions);
+  Window_GUI::instance->getWindow()->remove(this->start);
+  Window_GUI::instance->getWindow()->redraw();
 }
 
 void Tester_GUI::Instantiate(){
@@ -143,20 +189,20 @@ void Tester_GUI::Instantiate(){
   this->g_exam_question = new Fl_Box(20, 45, 730, 85, promptFinal);
   this->g_exam_question->align(FL_ALIGN_LEFT|FL_ALIGN_CLIP|FL_ALIGN_WRAP|FL_ALIGN_INSIDE);
   this->g_exam_question->labelsize(14);
-  Window::instance->getWindow()->add(this->g_exam_question);
+  Window_GUI::instance->getWindow()->add(this->g_exam_question);
 
   // Adding a exam title
   this->g_exam_title = new Fl_Box(10, 10, 5, 30, this->quiz->name.c_str());
   this->g_exam_title->align(FL_ALIGN_RIGHT);
   this->g_exam_title->labelsize(24);
-  Window::instance->getWindow()->add(this->g_exam_title);
+  Window_GUI::instance->getWindow()->add(this->g_exam_title);
 
   // Adding next button
   this->g_exam_next = new Fl_Button(700, 485, 60, 30);
   this->g_exam_next->labeltype(FL_NORMAL_LABEL);
   this->g_exam_next->label("Next");
   this->g_exam_next->box(FL_UP_BOX);
-  Window::instance->getWindow()->add(this->g_exam_next);
+  Window_GUI::instance->getWindow()->add(this->g_exam_next);
 
   // Adding buttons for each question response
   for(unsigned int i = 0; i < this->quiz->qGet()->responses.size(); i++){
@@ -172,7 +218,7 @@ void Tester_GUI::Instantiate(){
     nRB->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE|FL_ALIGN_WRAP|FL_ALIGN_CLIP);
 
     this->questionButtons.push_back(nRB);
-    Window::instance->getWindow()->add(nRB);
+    Window_GUI::instance->getWindow()->add(nRB);
   }
 
   // Next Callback
@@ -189,7 +235,7 @@ void Tester_GUI::Populate(){
 
   // Clearing the existing answers
   for(unsigned int i = 0; i < questionButtons.size(); i++){
-    Window::instance->getWindow()->remove(questionButtons[i]);
+    Window_GUI::instance->getWindow()->remove(questionButtons[i]);
     delete questionButtons[i];
   }
 
@@ -210,11 +256,11 @@ void Tester_GUI::Populate(){
     nRB->align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE|FL_ALIGN_WRAP|FL_ALIGN_CLIP);
 
     this->questionButtons.push_back(nRB);
-    Window::instance->getWindow()->add(nRB);
+    Window_GUI::instance->getWindow()->add(nRB);
   }
 
   // After Adding more elements
-  Window::instance->getWindow()->redraw();
+  Window_GUI::instance->getWindow()->redraw();
 }
 
 void Tester_GUI::gPopulate(){
@@ -242,11 +288,11 @@ void Tester_GUI::EndTest(){
   printf("Your exam has ended.\n");
 
   // Clearing current screen
-  Window::instance->getWindow()->remove(g_exam_question);
-  Window::instance->getWindow()->remove(g_exam_next);
-  Window::instance->getWindow()->remove(g_exam_back);
+  Window_GUI::instance->getWindow()->remove(g_exam_question);
+  Window_GUI::instance->getWindow()->remove(g_exam_next);
+  Window_GUI::instance->getWindow()->remove(g_exam_back);
   for(unsigned int i = 0; i < this->questionButtons.size(); i++){
-    Window::instance->getWindow()->remove(questionButtons[i]);
+    Window_GUI::instance->getWindow()->remove(questionButtons[i]);
   }
   
   // Scoring the test
@@ -280,7 +326,7 @@ void Tester_GUI::EndTest(){
     strcpy(qTitleFinal, qTitleText.c_str());
 
     title->label(qTitleFinal);
-    Window::instance->getWindow()->add(title);
+    Window_GUI::instance->getWindow()->add(title);
 
     // The questions you got right and wrong
     Fl_Box* qRatio = new Fl_Box(270, 130, 215, 30);
@@ -296,7 +342,7 @@ void Tester_GUI::EndTest(){
     strcpy(qRatioFinal, qRatioText.c_str());
 
     qRatio->label(qRatioFinal);
-    Window::instance->getWindow()->add(qRatio);
+    Window_GUI::instance->getWindow()->add(qRatio);
   }
 
   // Adding the missed answers section
@@ -345,7 +391,7 @@ void Tester_GUI::EndTest(){
       Fl_Group* missedQuestions = new Fl_Group(10, 200, 750, 280);
       missedQuestions->labelsize(19);
       missedQuestions->label("Missed Questions");
-      Window::instance->getWindow()->add(missedQuestions);
+      Window_GUI::instance->getWindow()->add(missedQuestions);
 
       // Going through all missed questions
       this->g_grade_header = new Fl_Group(20, 225, 730, 150);
@@ -377,20 +423,20 @@ void Tester_GUI::EndTest(){
       // Next
       Fl_Button* next = new Fl_Button(680, 485, 80, 30, "Next");
       next->callback(btnGNext);
-      Window::instance->getWindow()->add(next);
+      Window_GUI::instance->getWindow()->add(next);
 
       // Next
       Fl_Button* back = new Fl_Button(595, 485, 80, 30, "Back");
       back->callback(btnGBack);
-      Window::instance->getWindow()->add(back);
+      Window_GUI::instance->getWindow()->add(back);
     }
   }
 
   // Adding quit button
   Fl_Button* quit = new Fl_Button(10, 485, 80, 30, "Quit");
   quit->callback(btnQuit);
-  Window::instance->getWindow()->add(quit);
+  Window_GUI::instance->getWindow()->add(quit);
 
   // Redraw
-  Window::instance->getWindow()->redraw();
+  Window_GUI::instance->getWindow()->redraw();
 }

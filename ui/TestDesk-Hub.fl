@@ -5,8 +5,8 @@ code_name {.cxx}
 Function {make_window()} {open
 } {
   Fl_Window {} {
-    label TestDesk open selected
-    xywh {549 227 770 525} type Double visible
+    label TestDesk open
+    xywh {594 365 770 525} type Double visible
   } {
     Fl_Box {} {
       label TestDesk
@@ -15,10 +15,6 @@ Function {make_window()} {open
     Fl_Box {} {
       label {The simple study assistant.}
       xywh {275 80 200 25}
-    }
-    Fl_Input {} {
-      label {Quiz Name}
-      xywh {285 227 180 28}
     }
     Fl_Button {} {
       label Start
@@ -31,6 +27,19 @@ Function {make_window()} {open
     Fl_Box {} {
       label {Created by OBJNULL (Maddox Werts)}
       xywh {0 505 255 20}
+    }
+    Fl_Input_Choice {} {
+      label {Quiz Name} open
+      xywh {285 227 180 28}
+    } {
+      MenuItem {} {
+        label {Quiz A}
+        xywh {0 0 34 24}
+      }
+      MenuItem {} {
+        label {Quiz B}
+        xywh {0 0 34 24}
+      }
     }
   }
 }

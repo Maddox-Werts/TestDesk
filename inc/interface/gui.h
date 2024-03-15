@@ -16,6 +16,7 @@
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Value_Input.H>
+#include <FL/Fl_Input_Choice.H>
 
 // Structures
 typedef struct MissedQuestion{
@@ -26,23 +27,23 @@ typedef struct MissedQuestion{
   char* correct;
 } MissedQuestion;
 typedef struct HubData{
-  Fl_Input* name;
+  Fl_Input_Choice* name;
   Fl_Value_Input* questions;
 } HubData;
 
 // Classes
-class Window{
+class Window_GUI{
 private:
   // Variables
   Fl_Window* window;
 
 public:
   // Variables
-  static Window* instance;
+  static Window_GUI* instance;
   Fl_Window* getWindow();
 
   // Constructors
-  Window(const char* title, int w, int h);
+  Window_GUI(const char* title, int w, int h);
 
   // Functions
   void Update();
@@ -55,11 +56,13 @@ private:
   Fl_Box* title;
   Fl_Box* subtitle;
   Fl_Box* credits;
-  Fl_Input* quizName;
+  Fl_Input_Choice* quizName;
   Fl_Value_Input* numQuestions;
   Fl_Button* start;
 
   // Functions
+  std::vector<std::string> getQuizzes();
+
 public:
   // Variables
   static Hub_GUI* instance;

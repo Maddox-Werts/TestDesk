@@ -22,7 +22,7 @@ void cli_version(){
 }
 int gui_version(int argc, char* argv[]){
     // Creating the window app
-    Window::instance = new Window("TestDesk", 770, 525);
+    Window_GUI::instance = new Window_GUI("TestDesk", 770, 525);
 
     if(flagsSet >= 2){
         // Loading a quiz
@@ -36,8 +36,8 @@ int gui_version(int argc, char* argv[]){
     }
 
     // Finalizing and showing the window after creating GUI elements
-    Window::instance->Update();
-    Window::instance->Show(argc, argv);
+    Window_GUI::instance->Update();
+    Window_GUI::instance->Show(argc, argv);
 
     // Running FLTK
     return Fl::run();
@@ -52,14 +52,16 @@ int main(int argc, char* argv[]){
     }
 
     // Checking the arguments
-    if(args[1] == "--help"){
-        printf("Usage: TestDesk [OPTIONS]\n");
-        printf("OPTIONS: \n");
-        printf("\t-t: Sets the test you want to use (ex: CompTIA 1101)\n");
-        printf("\t-q: Sets the amount of questions to be quizzed on (random)\n");
-        printf("\t--help: Displays how to use the program\n");
-        printf("\t--cli: Starts program in a Command Line Interface.\n");
-        return 0;
+    if(argc > 1){
+        if(args[1] == "--help"){
+            printf("Usage: TestDesk [OPTIONS]\n");
+            printf("OPTIONS: \n");
+            printf("\t-t: Sets the test you want to use (ex: CompTIA 1101)\n");
+            printf("\t-q: Sets the amount of questions to be quizzed on (random)\n");
+            printf("\t--help: Displays how to use the program\n");
+            printf("\t--cli: Starts program in a Command Line Interface.\n");
+            return 0;
+        }
     }
     
     // Getting typed arguments
