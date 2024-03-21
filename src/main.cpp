@@ -2,7 +2,7 @@
 #include <base.h>
 #include <tester/quiz.h>
 #include <interface/cli.h>
-#include <interface/gui.h>
+#include <interface/gui_fltk.h>
 
 // Variables
 std::string quizPath = "data/exams/";

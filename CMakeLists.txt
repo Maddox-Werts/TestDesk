@@ -10,7 +10,7 @@ set(SOURCES
   src/tester/quiz.cpp
 
   src/interface/cli.cpp
-  src/interface/gui.cpp
+  src/interface/gui_fltk.cpp
 
   src/main.cpp
 )

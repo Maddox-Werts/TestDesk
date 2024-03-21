@@ -1,5 +1,5 @@
 // Header
-#include <interface/gui.h>
+#include <interface/gui_fltk.h>
 
 // Functions
 void btnNext(Fl_Widget*, void* data){
